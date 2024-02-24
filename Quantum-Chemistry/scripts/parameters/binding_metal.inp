@@ -1,0 +1,11 @@
+! METHOD BASIS
+
+%geom
+maxiter 500
+end
+
+%maxcore 2000
+
+*xyz charge spin
+Metal      0.00000        0.00000        0.00000
+*

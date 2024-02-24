@@ -1,0 +1,9 @@
+! METHOD BASIS OPT
+
+%geom
+maxiter 500
+end
+
+%maxcore 2000
+
+* xyzfile netcharge spin initial_ligand.xyz *
