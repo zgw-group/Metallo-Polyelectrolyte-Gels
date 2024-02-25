@@ -1,4 +1,9 @@
+# General
+*/data/*
+*.out
 *.tar.xz
+
+# Quantum Chemistry
 Quantum-Chemistry/software/molSimplify
 Quantum-Chemistry/software/orca
 Quantum-Chemistry/software/Multiwfn
