@@ -1,21 +1,52 @@
-# Description: Generate initial structure for the metal complex
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# Author     : Pierre Walker (GitHub: @pw0908)
+# Date       : 2024-02-23
+# Description: Script to create initial system for QC calculations
+# Usage      : ./system_initialization.sh
+# Notes      : Script assumes that global variables have been set in a
+#             submission/input/*.sh script. Script should only be called from
+#             the main run.sh script.
+
+# built-in shell options
+set -o errexit  # exit when a command fails. Add || true to commands allowed to fail
+set -o nounset  # exit when script tries to use undeclared variables
+set -o pipefail # exit when a command in a pipe fails
+
+# Default Preferences ###################################################################
+echo "INFO: Setting default preferences"
+
+# find path to this script
+script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+project_path="${script_path}/../.."
+input_path="${script_path}/../parameters"
+
+# Output files
+cwd_initialization="$(pwd)"
+cwd="$(pwd)/1-initiliazation"
+log_file="system_initialization.log"
+
 # Make and enter the initial directory
-mkdir initial
-cd initial
+# move to working directory
+mkdir -p "${cwd}"
+cd "${cwd}" || exit
 
 if [ ! -f initial.xyz ] # Check if the initial.xyz file exists. If it does, then the run probably has already been performed.
 then
     # Copy the input files for the initial guess to this repository
-    cp ${script_path}/initial.inp initial.inp
+    cp ${input_path}/initial.inp initial.inp
+    NET_CHARGE=$(($CHARGE - $NUM_LIGAND * $LIGAND_CHARGE))
+
 
     # Replace the placeholders in the input file with the correct values
-    sed -i'' -e "s/metal/$metal/g" initial.inp
-    sed -i'' -e "s/spinmultiplicity/$spin/g" initial.inp
-    sed -i'' -e "s/netcharge/$netcharge/g" initial.inp
-    sed -i'' -e "s/oxidationstate/$oxidationstate/g" initial.inp
-    sed -i'' -e "s/ligandsmile/$ligandsmile/g" initial.inp
-    sed -i'' -e "s/bindingsites/$bindingsites/g" initial.inp
-    sed -i'' -e "s/numligand/$numligand/g" initial.inp
+    sed -i'' -e "s/metal/$METAL/g" initial.inp
+    sed -i'' -e "s/spinmultiplicity/$SPIN/g" initial.inp
+    sed -i'' -e "s/netcharge/$NET_CHARGE/g" initial.inp
+    sed -i'' -e "s/oxidationstate/$OX_STATE/g" initial.inp
+    sed -i'' -e "s/ligandsmile/$LIGAND/g" initial.inp
+    sed -i'' -e "s/bindingsites/$BINDING_SITES/g" initial.inp
+    sed -i'' -e "s/numligand/$NUM_LIGAND/g" initial.inp
 
     # Obtain the initial guess for the structure from MolSimplify
     molsimplify -i initial.inp

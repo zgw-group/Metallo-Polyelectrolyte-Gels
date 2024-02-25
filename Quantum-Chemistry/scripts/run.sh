@@ -125,10 +125,6 @@ source "${project_path}/scripts/variable/system.sh"
 # shellcheck source=variable/node.sh
 source "${project_path}/scripts/variable/node.sh"
 
-# export simulation methods
-export FLAG_SAMPLING_METAD
-export FLAG_SAMPLING_OPES_EXPLORE
-
 # create simulation directory and move into it
 mkdir -p "${project_path}/data/${TAG}"
 cd "${project_path}/data/${TAG}" || exit 1
@@ -140,7 +136,7 @@ cd "${project_path}/data/${TAG}" || exit 1
 # initialize simulation
 if [[ "${flag_initialization}" = true ]]; then
     echo "Initializing simulation..."
-    "${project_path}/scripts/method/initialization.sh"
+    "${project_path}/scripts/method/initialisation.sh"
 fi
 
 # equilibrate simulation
@@ -189,6 +185,10 @@ if [[ "${flag_production}" = true ]]; then
     fi
 
 fi
+
+mkdir -p "${project_path}/data/${TAG}"
+cd "${project_path}/data/${TAG}" || exit 1
+
 
 # ##############################################################################
 # End ##########################################################################
