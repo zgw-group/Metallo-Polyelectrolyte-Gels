@@ -1,0 +1,4 @@
+*.tar.xz
+Quantum-Chemistry/software/molSimplify
+Quantum-Chemistry/software/orca
+Quantum-Chemistry/software/Multiwfn
