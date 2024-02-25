@@ -27,34 +27,57 @@ cwd_initialization="$(pwd)"
 cwd="$(pwd)/1-initiliazation"
 log_file="system_initialization.log"
 
+echo "INFO: Generating initial system"
 # Make and enter the initial directory
 # move to working directory
 mkdir -p "${cwd}"
 cd "${cwd}" || exit
+echo $METAL
+echo $LIGAND
 
+{
 if [ ! -f initial.xyz ] # Check if the initial.xyz file exists. If it does, then the run probably has already been performed.
 then
     # Copy the input files for the initial guess to this repository
     cp ${input_path}/initial.inp initial.inp
-    NET_CHARGE=$(($CHARGE - $NUM_LIGAND * $LIGAND_CHARGE))
 
+    # Sum of the charges of the ligands
+    NET_LIGAND_CHARGE="0"
+    for i in "${!NUM_LIGAND[@]}"; do
+        NET_LIGAND_CHARGE=$(($NET_LIGAND_CHARGE + $NUM_LIGAND[i] * $LIGAND_CHARGE[i]))
+    done
+    NET_CHARGE=$(($METAL_CHARGE + $NET_LIGAND_CHARGE))
+    LIGANDS=""
+    BINDINGS=""
+    NUM_LIGANDS=""
+    for i in "${!LIGAND[@]}"; do
+        LIGANDS="${LIGANDS}${LIGAND[i]},"
+        BINDINGS="${BINDINGS}${BINDING_SITES[i]}/"
+        NUM_LIGANDS="${NUM_LIGANDS}${NUM_LIGAND[i]},"
+    done
+    # echo $NET_LIGAND_CHARGE
+    LIGANDS=${LIGANDS::-1}
+    BINDINGS=${BINDINGS::-1}
+    NUM_LIGANDS=${NUM_LIGANDS::-1}
 
     # Replace the placeholders in the input file with the correct values
     sed -i'' -e "s/metal/$METAL/g" initial.inp
     sed -i'' -e "s/spinmultiplicity/$SPIN/g" initial.inp
     sed -i'' -e "s/netcharge/$NET_CHARGE/g" initial.inp
     sed -i'' -e "s/oxidationstate/$OX_STATE/g" initial.inp
-    sed -i'' -e "s/ligandsmile/$LIGAND/g" initial.inp
-    sed -i'' -e "s/bindingsites/$BINDING_SITES/g" initial.inp
-    sed -i'' -e "s/numligand/$NUM_LIGAND/g" initial.inp
+    sed -i'' -e "s/ligandsmile/$LIGANDS/g" initial.inp
+    sed -i'' -e "s/bindingsites/$BINDINGS/g" initial.inp
+    sed -i'' -e "s/numligand/$NUM_LIGANDS/g" initial.inp
 
     # Obtain the initial guess for the structure from MolSimplify
     molsimplify -i initial.inp
 
     # Rename the output file to initial.xyz and remove all other files
+    echo "INFO: Cleaning up"
     find . -name '*xyz' -exec mv {} initial.xyz \;
     rm -r Runs
 fi
-
+} > "${log_file}" 2>&1
 # Exit the directory and return to the main folder
-cd ..
+echo "Critical: Finished system initialization"
+cd "${cwd_initialization}" || exit 1
