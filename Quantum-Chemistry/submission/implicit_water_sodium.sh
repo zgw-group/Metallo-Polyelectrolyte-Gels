@@ -11,6 +11,9 @@ export CPU_THREADS='20' # number of CPU threads to use (-1 = all available)
 export CPU_PINS='0'     # offset for CPU thread pinning (-1 = no offset)
 
 # System components ###########################################################
+# tag for system
+export TAG_JOBID="0.1.0" # tag to append to system name
+
 # metal specification
 export METAL="Na"         # Give the metal name
 export OX_STATE="I"       # Give the oxidation state of the metal
