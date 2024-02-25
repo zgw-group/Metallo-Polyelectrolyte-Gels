@@ -8,9 +8,9 @@
 # Usage      : ./run.sh [global_preferences] [simulation_preferences]
 
 # built-in shell options
-set -o errexit  # exit when a command fails. Add || true to commands allowed to fail
-set -o nounset  # exit when script tries to use undeclared variables
-set -o pipefail # exit when a command in a pipe fails
+# set -o errexit  # exit when a command fails. Add || true to commands allowed to fail
+# set -o nounset  # exit when script tries to use undeclared variables
+# set -o pipefail # exit when a command in a pipe fails
 
 package="run.sh" # name of this script
 
@@ -23,7 +23,7 @@ global_preferences="${1}"
 
 # simulation method flags
 flag_initialization=false
-flag_optimisation=false
+flag_optimization=false
 flag_binding=false
 flag_ir_spectrum=false
 
@@ -41,8 +41,8 @@ for arg in "$@"; do
     -i | --initialize)
         flag_initialization=true
         ;;
-    -opt | --optimise)
-        flag_optimisation=true
+    -opt | --optimize)
+        flag_optimization=true
         ;;
     -b | --binding)
         flag_binding=true
@@ -52,7 +52,7 @@ for arg in "$@"; do
         ;;
     -a | --all)
         flag_initialization=true
-        flag_optimisation=true
+        flag_optimization=true
         flag_binding=true
         flag_ir_spectrum=true
         ;;
@@ -66,7 +66,7 @@ for arg in "$@"; do
         echo ""
         echo "Calculation methods:"
         echo "  -i, --initialize    Initialize the calculation."
-        echo "  -opt, --optimise    Optimise the initial structure."
+        echo "  -opt, --optimize    optimize the initial structure."
         echo "  -b, --binding       Calculate the binding energy of the complex."
         echo "  -ir, --ir_spectrum  Calculate the IR spectrum of the complex."
         echo "  -a, --all           Run all simulation methods."
@@ -95,15 +95,7 @@ fi
 
 # check that at least one simulation method was selected
 if [[ "${flag_initialization}" = false ]] && [[ "${flag_equilibration}" = false ]] && [[ "${flag_production}" = false ]]; then
-    echo "ERROR: No simulation methods selected."
-    echo "Usage: ${package} [global_preferences] [simulation_preferences]"
-    echo "Use '${package} --help' for more information."
-    exit 1
-fi
-
-# check that if production was selected, at least one sampling method was selected
-if [[ "${flag_production}" = true ]] && [[ "${flag_sampling_md}" = false ]] && [[ "${FLAG_SAMPLING_OPES_EXPLORE}" = false ]] && [[ "${flag_sampling_opes_one}" = false ]] && [[ "${flag_sampling_hremd}" = false ]] && [[ "${FLAG_SAMPLING_METAD}" = false ]]; then
-    echo "ERROR: No production sampling methods selected."
+    echo "ERROR: No methods selected."
     echo "Usage: ${package} [global_preferences] [simulation_preferences]"
     echo "Use '${package} --help' for more information."
     exit 1
@@ -133,62 +125,31 @@ cd "${project_path}/data/${TAG}" || exit 1
 # Run simulation methods #######################################################
 # ##############################################################################
 
-# initialize simulation
+# initialize structure
 if [[ "${flag_initialization}" = true ]]; then
-    echo "Initializing simulation..."
-    "${project_path}/scripts/method/initialisation.sh"
+    echo "Initializing structure..."
+    echo $LIGAND
+    echo $METAL
+    "${project_path}/scripts/method/initialization.sh"
 fi
 
-# equilibrate simulation
-if [[ "${flag_equilibration}" = true ]]; then
-    echo "Equilibrating simulation..."
-    "${project_path}/scripts/method/equilibration.sh"
+# optimize structure
+if [[ "${flag_optimization}" = true ]]; then
+    echo "Optimizing structure..."
+    "${project_path}/scripts/method/optimization.sh"
 fi
 
-# run production simulation
-if [[ "${flag_production}" = true ]]; then
-    echo "INFO: Archiving simulation boolean: ${flag_archive}"
-    export FLAG_ARCHIVE="${flag_archive}"
-
-    # find walltime remaining
-    # shellcheck source=variable/slurm.sh
-    source "${project_path}/scripts/variable/slurm.sh"
-    echo "INFO: WALLTIME_HOURS: ${WALLTIME_HOURS}"
-
-    if [[ "${flag_sampling_hremd}" = true ]]; then
-        echo "Equilibrating HREMD..."
-        "${project_path}/scripts/method/equilibration_hremd.sh"
-
-        # recalculate walltime remaining
-        # shellcheck source=variable/slurm.sh
-        source "${project_path}/scripts/variable/slurm.sh"
-        echo "INFO: WALLTIME_HOURS for HREMD production: ${WALLTIME_HOURS}"
-
-        echo "Sampling HREMD..."
-        "${project_path}/scripts/method/sampling_hremd.sh"
-
-    elif [[ "${flag_sampling_md}" = true ]]; then
-        echo "Sampling MD..."
-        "${project_path}/scripts/method/sampling_md.sh"
-
-    elif [[ "${FLAG_SAMPLING_METAD}" = true ]]; then
-        echo "Sampling Metadynamics..."
-        "${project_path}/scripts/method/sampling_metadynamics.sh"
-
-    elif [[ "${FLAG_SAMPLING_OPES_EXPLORE}" = true ]]; then
-        echo "Sampling OPES Explore..."
-        "${project_path}/scripts/method/sampling_opes_explore.sh"
-
-    elif [[ "${flag_sampling_opes_one}" = true ]]; then
-        echo "Sampling OneOPES..."
-        "${project_path}/scripts/method/sampling_opes_one.sh"
-    fi
-
+# perform binding calculation
+if [[ "${flag_binding}" = true ]]; then
+    echo "Calculating Binding energy..."
+    "${project_path}/scripts/method/binding_calc.sh"
 fi
 
-mkdir -p "${project_path}/data/${TAG}"
-cd "${project_path}/data/${TAG}" || exit 1
-
+# obtain IR spectrum
+if [[ "${flag_ir_spectrum}" = true ]]; then
+    echo "Obtaining IR spectrum..."
+    "${project_path}/scripts/method/ir_spectrum.sh"
+fi
 
 # ##############################################################################
 # End ##########################################################################

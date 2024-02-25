@@ -20,7 +20,7 @@ export METAL_TAG
 
 # ligand tags
 for i in "${!LIGAND[@]}"; do
-    LIGAND_TAG="${LIGAND_TAG}-${LIGAND[i]}-${BINDING_SITES[i]}-${LIGAND_CHARGE[i]}-${NUM_LIGAND[i]}"
+    LIGAND_TAG="${LIGAND_TAG}-${LIGAND[i]}-${BINDING_SITES[i]}-${NUM_LIGAND[i]}"
 done
 export LIGAND_TAG
 
