@@ -18,10 +18,10 @@ export METAL_CHARGE="1"   # Give the charge of the metal
 export SPIN="1"           # Give the spin of the metal complex (e.g. 5 for Fe(II), 4 for Fe(III))
 
 # ligand specification
-export LIGAND=("NC(C(=O)[O-])") # Give the ligand name
-export BINDING_SITES=("4,5")    # Give the binding sites for the ligand
+export LIGAND=("C(C(=O)[O-])") # Give the ligand name
+export BINDING_SITES=("3,4")    # Give the binding sites for the ligand
 export LIGAND_CHARGE=("-1")     # Give the charge of the ligand
-export NUM_LIGAND=("3")         # Give the number of ligands in the complex
+export NUM_LIGAND=("1")         # Give the number of ligands in the complex
 
 # complex specification
 export COMPLEX_SPIN="1" # Give the spin of the complex

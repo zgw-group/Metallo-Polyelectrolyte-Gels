@@ -8,3 +8,4 @@
 # Install the various packages
 source ./1-orca.sh
 source ./2-molsimplify.sh
+source ./3-multiwfn.sh
