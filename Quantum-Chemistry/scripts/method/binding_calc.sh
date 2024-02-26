@@ -137,7 +137,12 @@ else
         # Run the ligand calculations using ORCA
         if [ $CPU_THREADS -gt 1 ]
         then
-            $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
+            if [ -z ${CPU_LIST+x} ]
+            then
+                $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
+            else
+                $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus"
+            fi
         else
             $ORCA_BIN ligand.inp > ligand.out
         fi
