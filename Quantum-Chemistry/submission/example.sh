@@ -30,7 +30,7 @@ date_time=$(date +"%Y-%m-%d %T")
 echo "START: ${date_time}"
 
 parallel --link --keep-order --ungroup --halt-on-error '2' --jobs '1' \
-    "${scripts_dir}/run.sh" "${params_dir}/{1}" --binding \
+    "${scripts_dir}/run.sh" "${params_dir}/{1}" --ir_spectrum \
     ::: "${input_globals[@]}"
 
 # end script

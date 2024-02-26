@@ -1,0 +1,13 @@
+! METHOD BASIS FREQ
+
+%scf
+maxiter 2000
+end
+
+%pal 
+nproc = ncpu
+end
+
+%maxcore 2000
+
+* xyzfile netcharge spin ../2-optimization/optimization.xyz *
