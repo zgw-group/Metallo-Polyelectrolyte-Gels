@@ -1,6 +1,9 @@
+import os
 kwd = "FINAL SINGLE POINT ENERGY"
 
-complexfile = open("../optimisation/output.out")
+cwd = os.getcwd()
+
+complexfile = open(cwd+"/../2-optimization/optimization.out")
 
 lines = complexfile.readlines()
 for line in reversed(lines):
@@ -8,7 +11,7 @@ for line in reversed(lines):
         E_C = 27.2114*float(line.replace(kwd,""))
         break  
     
-metalfile = open("output_metal.out")
+metalfile = open(cwd+"/metal/metal.out")
 
 lines = metalfile.readlines()
 for line in reversed(lines):
@@ -16,7 +19,7 @@ for line in reversed(lines):
         E_M = 27.2114*float(line.replace(kwd,""))
         break  
     
-ligandfile = open("output_ligand.out")
+ligandfile = open(cwd+"/ligand/ligand.out")
 
 lines = ligandfile.readlines()
 for line in reversed(lines):
