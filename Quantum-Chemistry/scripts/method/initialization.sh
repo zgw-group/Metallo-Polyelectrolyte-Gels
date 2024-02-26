@@ -24,16 +24,14 @@ input_path="${script_path}/../parameters"
 
 # Output files
 cwd_initialization="$(pwd)"
-cwd="$(pwd)/1-initiliazation"
-log_file="system_initialization.log"
+cwd="$(pwd)/1-initialization"
+log_file="initialization.log"
 
 echo "INFO: Generating initial system"
 # Make and enter the initial directory
 # move to working directory
 mkdir -p "${cwd}"
 cd "${cwd}" || exit
-echo $METAL
-echo $LIGAND
 
 {
 if [ ! -f initial.xyz ] # Check if the initial.xyz file exists. If it does, then the run probably has already been performed.
@@ -42,11 +40,6 @@ then
     cp ${input_path}/initial.inp initial.inp
 
     # Sum of the charges of the ligands
-    NET_LIGAND_CHARGE="0"
-    for i in "${!NUM_LIGAND[@]}"; do
-        NET_LIGAND_CHARGE=$(($NET_LIGAND_CHARGE + ${NUM_LIGAND[i]} * ${LIGAND_CHARGE[i]}))
-    done
-    NET_CHARGE=$(($METAL_CHARGE + $NET_LIGAND_CHARGE))
     LIGANDS=""
     BINDINGS=""
     NUM_LIGANDS=""
@@ -68,6 +61,7 @@ then
     sed -i'' -e "s/ligandsmile/$LIGANDS/g" initial.inp
     sed -i'' -e "s/bindingsites/$BINDINGS/g" initial.inp
     sed -i'' -e "s/numligand/$NUM_LIGANDS/g" initial.inp
+    sed -i'' -e "s/ncoord/$COORD/g" initial.inp
 
     # Obtain the initial guess for the structure from MolSimplify
     molsimplify -i initial.inp
@@ -76,6 +70,8 @@ then
     echo "INFO: Cleaning up"
     find . -name '*xyz' -exec mv {} initial.xyz \;
     rm -r Runs
+else 
+    echo "Initial guess already generated"
 fi
 } > "${log_file}" 2>&1
 # Exit the directory and return to the main folder

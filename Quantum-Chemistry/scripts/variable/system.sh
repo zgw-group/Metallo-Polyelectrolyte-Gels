@@ -20,8 +20,9 @@ export METAL_TAG
 
 # ligand tags
 for i in "${!LIGAND[@]}"; do
-    LIGAND_TAG="${LIGAND_TAG}-${LIGAND[i]}-${BINDING_SITES[i]}-${NUM_LIGAND[i]}"
+    LIGAND_TAG="${LIGAND_TAG}${LIGAND[i]}-${BINDING_SITES[i]}-${NUM_LIGAND[i]}-"
 done
+LIGAND_TAG=${LIGAND_TAG::-1}
 export LIGAND_TAG
 
 # complex tag
@@ -32,3 +33,9 @@ METHOD_TAG="${FUNCTIONAL}-${BASIS_SET}"
 
 # Combine tags
 export TAG="${TAG_JOBID}-${METAL_TAG}-${LIGAND_TAG}-${COMPLEX_SPIN}-${METHOD_TAG}"
+
+NET_LIGAND_CHARGE="0"
+for i in "${!NUM_LIGAND[@]}"; do
+    NET_LIGAND_CHARGE=$(($NET_LIGAND_CHARGE + ${NUM_LIGAND[i]} * ${LIGAND_CHARGE[i]}))
+done
+NET_CHARGE=$(($METAL_CHARGE + $NET_LIGAND_CHARGE))

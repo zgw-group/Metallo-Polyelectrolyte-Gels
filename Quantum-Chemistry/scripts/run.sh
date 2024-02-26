@@ -128,27 +128,25 @@ cd "${project_path}/data/${TAG}" || exit 1
 # initialize structure
 if [[ "${flag_initialization}" = true ]]; then
     echo "Initializing structure..."
-    echo $LIGAND
-    echo $METAL
     source "${project_path}/scripts/method/initialization.sh"
 fi
 
 # optimize structure
 if [[ "${flag_optimization}" = true ]]; then
     echo "Optimizing structure..."
-    "${project_path}/scripts/method/optimization.sh"
+    source "${project_path}/scripts/method/optimization.sh"
 fi
 
 # perform binding calculation
 if [[ "${flag_binding}" = true ]]; then
     echo "Calculating Binding energy..."
-    "${project_path}/scripts/method/binding_calc.sh"
+    source "${project_path}/scripts/method/binding_calc.sh"
 fi
 
 # obtain IR spectrum
 if [[ "${flag_ir_spectrum}" = true ]]; then
     echo "Obtaining IR spectrum..."
-    "${project_path}/scripts/method/ir_spectrum.sh"
+    source "${project_path}/scripts/method/ir_spectrum.sh"
 fi
 
 # ##############################################################################

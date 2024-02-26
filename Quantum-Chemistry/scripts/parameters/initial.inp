@@ -1,5 +1,5 @@
 -core metal
--coord 6
+-coord ncoord
 -lig ligandsmile
 -oxstate oxidationstate
 -spin spinmultiplicity
