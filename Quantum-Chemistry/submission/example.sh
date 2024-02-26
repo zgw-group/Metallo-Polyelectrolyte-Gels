@@ -19,7 +19,7 @@
 # simulation path variables
 proj_base_dir="$(pwd)/.."
 scripts_dir="${proj_base_dir}/scripts"
-params_dir="${proj_base_dir}/submission"
+params_dir="${proj_base_dir}/submission/input"
 
 input_globals=(
     implicit_water_sodium.sh
@@ -30,7 +30,7 @@ date_time=$(date +"%Y-%m-%d %T")
 echo "START: ${date_time}"
 
 parallel --link --keep-order --ungroup --halt-on-error '2' --jobs '1' \
-    "${scripts_dir}/run.sh" "${params_dir}/{1}" --ir_spectrum \
+    "${scripts_dir}/run.sh" "${params_dir}/{1}" --all \
     ::: "${input_globals[@]}"
 
 # end script

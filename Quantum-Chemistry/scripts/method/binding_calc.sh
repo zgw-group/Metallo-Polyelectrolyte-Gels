@@ -36,7 +36,7 @@ echo "INFO: Obtain SPE of Metal"
 mkdir -p "${cwd}/metal"
 cd "${cwd}/metal" || exit
 {
-if [ ! -f "${cwd}/metal/metal.out" ] # Check if the optimisation.xyz file exists. If it does, then the run probably has already been performed.
+if [ ! -f "${cwd}/metal/metal.out" ] # Check if the optimization.xyz file exists. If it does, then the run probably has already been performed.
 then
         # Copy the input files for the metal to this repository
         cp ${input_path}/binding_metal.inp metal.inp
@@ -81,7 +81,7 @@ mkdir -p "${cwd}/ligand"
 cd "${cwd}/ligand" || exit
 
 {
-if [ -f "${cwd}/ligand/ligand.out" ] # Check if the optimisation.xyz file exists. If it does, then the run probably has already been performed.
+if [ ! -f "${cwd}/ligand/ligand.out" ] # Check if the optimization.xyz file exists. If it does, then the run probably has already been performed.
 then
 
         # Copy the input files for the ligand to this repository

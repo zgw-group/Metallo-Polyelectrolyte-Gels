@@ -33,19 +33,19 @@ mkdir -p "${cwd}"
 cd "${cwd}" || exit
 
 {
-if [ ! -f optimization.out ] # Check if the optimisation.xyz file exists. If it does, then the run probably has already been performed.
+if [ ! -f optimization.out ] # Check if the optimization.xyz file exists. If it does, then the run probably has already been performed.
 then
-    # Copy the input files for the optimisation to this repository
-    cp ${input_path}/optimisation.inp optimisation.inp
+    # Copy the input files for the optimization to this repository
+    cp ${input_path}/optimization.inp optimization.inp
 
     # Replace the placeholders in the input file with the correct values
-    sed -i'' -e "s/spin/$COMPLEX_SPIN/g" optimisation.inp
-    sed -i'' -e "s/netcharge/$NET_CHARGE/g" optimisation.inp
-    sed -i'' -e "s/ncpu/$CPU_THREADS/g" optimisation.inp
-    sed -i'' -e "s/METHOD/$FUNCTIONAL/g" optimisation.inp
-    sed -i'' -e "s/BASIS/$BASIS_SET/g" optimisation.inp
+    sed -i'' -e "s/spin/$COMPLEX_SPIN/g" optimization.inp
+    sed -i'' -e "s/netcharge/$NET_CHARGE/g" optimization.inp
+    sed -i'' -e "s/ncpu/$CPU_THREADS/g" optimization.inp
+    sed -i'' -e "s/METHOD/$FUNCTIONAL/g" optimization.inp
+    sed -i'' -e "s/BASIS/$BASIS_SET/g" optimization.inp
 
-    # Run the optimisation using ORCA
+    # Run the optimization using ORCA
     # if ncpu greater than 1, then use pinseting
 
     if [ $CPU_THREADS -gt 1 ]
@@ -53,12 +53,12 @@ then
         # if CPU_LIST is not set, then use all available cores
         if [ -z ${CPU_LIST+x} ]
         then
-            $ORCA_BIN optimisation.inp > optimization.out "-np $CPU_THREADS --use-hwthread-cpus"
+            $ORCA_BIN optimization.inp > optimization.out "-np $CPU_THREADS --use-hwthread-cpus"
         else
-            $ORCA_BIN optimisation.inp > optimization.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
+            $ORCA_BIN optimization.inp > optimization.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
         fi
     else
-        $ORCA_BIN optimisation.inp > optimization.out
+        $ORCA_BIN optimization.inp > optimization.out
     fi
 else
     if grep -Fq "ORCA TERMINATED NORMALLY" optimization.out

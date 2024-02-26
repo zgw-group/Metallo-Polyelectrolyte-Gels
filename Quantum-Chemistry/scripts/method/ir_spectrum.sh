@@ -89,6 +89,7 @@ fi
 } > "${log_file}" 2>&1
 
 # Obtain spectrum using Multiwfn
+{
 $MFW_BIN complex_IR.out << EOF
 11
 1
@@ -100,6 +101,7 @@ $MFW_BIN complex_IR.out << EOF
 -3
 q
 EOF
+} > "${log_file}" 2>&1
 # Exit the directory and return to the main folder
 echo "Critical: Finished IR spectrum calculation"
 cd "${cwd_ir_spectrum}" || exit 1
