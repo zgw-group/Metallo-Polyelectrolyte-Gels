@@ -7,3 +7,7 @@
 Quantum-Chemistry/software/molSimplify
 Quantum-Chemistry/software/orca
 Quantum-Chemistry/software/Multiwfn
+
+# Molecular Dynamics
+Molecular-Dynamics/software/lammps/*
+Molecular-Dynamics/software/mdhelper/*
