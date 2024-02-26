@@ -130,7 +130,7 @@ if [[ "${flag_initialization}" = true ]]; then
     echo "Initializing structure..."
     echo $LIGAND
     echo $METAL
-    "${project_path}/scripts/method/initialization.sh"
+    source "${project_path}/scripts/method/initialization.sh"
 fi
 
 # optimize structure

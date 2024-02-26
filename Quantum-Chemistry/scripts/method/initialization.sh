@@ -44,7 +44,7 @@ then
     # Sum of the charges of the ligands
     NET_LIGAND_CHARGE="0"
     for i in "${!NUM_LIGAND[@]}"; do
-        NET_LIGAND_CHARGE=$(($NET_LIGAND_CHARGE + $NUM_LIGAND[i] * $LIGAND_CHARGE[i]))
+        NET_LIGAND_CHARGE=$(($NET_LIGAND_CHARGE + ${NUM_LIGAND[i]} * ${LIGAND_CHARGE[i]}))
     done
     NET_CHARGE=$(($METAL_CHARGE + $NET_LIGAND_CHARGE))
     LIGANDS=""
