@@ -65,17 +65,17 @@ else
     then
         echo "Optimization already performed"
     else
-        if [ $TOTAL_CPU -gt 1 ]
+        if [ $CPU_THREADS -gt 1 ]
         then
             # if CPU_LIST is not set, then use all available cores
             if [ -z ${CPU_LIST+x} ]
             then
-                $ORCA_BIN optimisation.inp > optimization.out "-np $TOTAL_CPU --use-hwthread-cpus"
+                $ORCA_BIN optimization.inp > optimization.out "-np $CPU_THREADS --use-hwthread-cpus"
             else
-                $ORCA_BIN optimisation.inp > optimization.out "-np $TOTAL_CPU --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
+                $ORCA_BIN optimization.inp > optimization.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
             fi
         else
-            $ORCA_BIN optimisation.inp > optimization.out
+            $ORCA_BIN optimization.inp > optimization.out
         fi
     fi
 fi
