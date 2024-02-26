@@ -7,7 +7,7 @@
 
 # Hardware ####################################################################
 
-export CPU_THREADS='20' # number of CPU threads to use (-1 = all available)
+export CPU_THREADS='4' # number of CPU threads to use (-1 = all available)
 export CPU_PINS='0'     # offset for CPU thread pinning (-1 = no offset)
 
 # System components ###########################################################
@@ -29,9 +29,11 @@ LIGAND_CHARGE=("-1")     # Give the charge of the ligand
 export LIGAND_CHARGE
 NUM_LIGAND=("1")         # Give the number of ligands in the complex
 export NUM_LIGAND
+export TOTAL_LIGAND_SPIN="1"
 
 # complex specification
 export COMPLEX_SPIN="1" # Give the spin of the complex
+export COORD="6"
 
 # Calculation #################################################################
 # DFT specification
