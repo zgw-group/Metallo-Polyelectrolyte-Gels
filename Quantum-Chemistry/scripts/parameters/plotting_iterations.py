@@ -21,7 +21,7 @@ while True:
         # add text to indicate the time
         # plt.text(45, 2, time.strftime("%H:%M:%S"), fontsize=12)
         plt.xlabel('Iteration')
-        plt.ylabel('Energy')
+        plt.ylabel('$\Delta E$ (Hartree)')
         plt.xlim(0, len(Energy)+1)
         
         plt.savefig('convergence.png')
