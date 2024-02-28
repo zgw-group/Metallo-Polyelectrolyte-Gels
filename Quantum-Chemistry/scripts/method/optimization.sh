@@ -31,7 +31,8 @@ echo "INFO: Optimizing complex structure"
 # move to working directory
 mkdir -p "${cwd}"
 cd "${cwd}" || exit
-
+$PYTHON_BIN ${input_path}/plotting_iterations.py > plotting.out &
+pid=$!
 {
 if [ ! -f optimization.out ] # Check if the optimization.xyz file exists. If it does, then the run probably has already been performed.
 then
@@ -47,7 +48,6 @@ then
 
     # Run the optimization using ORCA
     # if ncpu greater than 1, then use pinseting
-
     if [ $CPU_THREADS -gt 1 ]
     then
         # if CPU_LIST is not set, then use all available cores
@@ -80,6 +80,8 @@ else
     fi
 fi
 } > "${log_file}" 2>&1
+
+kill -SIGKILL $pid
 # Exit the directory and return to the main folder
 echo "Critical: Finished complex optimization"
 cd "${cwd_optimization}" || exit 1

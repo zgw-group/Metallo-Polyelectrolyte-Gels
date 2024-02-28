@@ -26,4 +26,5 @@ if [[ "${hostname}" == "pierre-walker" ]]; then
     TOTAL_CPU=24
     CPU_LIST="$(python3 ${script_path}/../parameters/cpu_avail.py ${TOTAL_CPU} $CPU_THREADS)"
     echo "CPUs pinned: ${CPU_LIST}"
+    PYTHON_BIN="/home/pjwalker/anaconda3/bin/python3"
 fi    
