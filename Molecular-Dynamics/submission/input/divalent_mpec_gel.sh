@@ -12,6 +12,9 @@ export GPUS='1'                             # number of GPUs to use (-1 = all av
 export GPU_ID='0'                           # GPU ID to use (-1 = no GPU)
 
 # System components ###########################################################
+# tag for system
+export TAG_JOBID="0.2.0" # tag to append to system name
+
 # metal specification
 export NMETAL="600"                         # Give the number of metal atoms
 export METAL_DIAMETER="0.5"                 # Give the radius of the metal
