@@ -1,0 +1,65 @@
+# ====================================================================
+# Initialising the system
+# ====================================================================
+units           lj
+# -----------------------------------------------------------
+# Set conditions
+# -----------------------------------------------------------
+variable  temp             equal   Temp
+variable  pre              equal   Pre
+
+# -----------------------------------------------------------
+# Define atom types
+# -----------------------------------------------------------
+variable  Ntypes           equal   6
+
+atom_style      full # atom_style full means all atoms must have a size, charge and mass.
+
+# -----------------------------------------------------------
+# Define simulation box
+# -----------------------------------------------------------
+variable        xlo      equal   "xlo"
+variable        xhi      equal   "xhi"
+variable        ylo      equal   "ylo"
+variable        yhi      equal   "yhi"
+variable        zlo      equal   "zlo"
+variable        zhi      equal   "zhi"
+
+boundary        p p p # periodic boundary conditions
+
+# -----------------------------------------------------------
+# Read input file
+# -----------------------------------------------------------
+# -----------------------------------------------------------
+# Data dump parameters
+# -----------------------------------------------------------
+variable        dumpfreq        equal 1000 # dump frequency of the coordinates
+variable        thermofreq      equal 1000 # dump frequency of thermo
+variable        restartfreq     equal 1000 # dump frequency of thermo
+
+# -----------------------------------------------------------
+# Neighbour list parameters
+# -----------------------------------------------------------
+neighbor        0.4 bin # Include all atoms 0.4 beyond the cutoff within the neighbor list
+neigh_modify    every 1 delay 0 check yes # Update the neighbour list every step with no delays
+
+comm_modify     vel yes # Communicate velocity info with ghost atoms
+
+# ====================================================================
+# Forcefield
+# ====================================================================
+pair_style      lj/cut/coul/cut 1.12246204831 18 # lj+coulomb potential w/ particle-particle particle-mesh solver for coulomb
+# pair_style      lj/cut/coul/long 1.12246204831 18 # lj+coulomb potential w/ particle-particle particle-mesh solver for coulomb
+bond_style      fene    # FENE-type bond interactions
+special_bonds   fene    # prevents LJ from being counted twice
+
+# -------------------------------------------------------------------
+# Set Non-bonded Potential Parameters
+# -------------------------------------------------------------------
+dielectric      e_r                   
+
+pair_modify     shift yes mix arithmetic # use arithmetic combining rules for unlike interactions
+
+# kspace_style    pppm/cg 1e-4 # Particle-particle particle-mesh accuracy
+
+restart ${restartfreq} simulation.restart1 simulation.restart2

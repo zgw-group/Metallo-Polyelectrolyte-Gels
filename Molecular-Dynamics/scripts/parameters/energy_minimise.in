@@ -1,0 +1,36 @@
+# ====================================================================
+# Initialisation
+# ====================================================================
+# -------------------------------------------------------------------
+# Set Up Simulation based on NVE run
+# -------------------------------------------------------------------
+include parameters.in
+read_data input.data
+
+reset_timestep 0
+
+thermo_style    custom step temp vol press cpuremain
+thermo          ${thermofreq}
+
+# -------------------------------------------------------------------
+# Initial energy minimisation
+# -------------------------------------------------------------------
+minimize 1e-4 1e-4 100 100000 # minimise the energy of the system down to an energy and force tolerance of 1e-4 within a certain number of steps
+write_data minimized.data # save the energy minimised data 
+
+# -------------------------------------------------------------------
+# Set Initial Velocity of atoms
+# -------------------------------------------------------------------
+velocity    all create ${temp} 87287 loop geom dist gaussian # generate the initial velocities of your system based on a gaussian distribution
+
+# -------------------------------------------------------------------
+# Initial NVE run with langevin thermostat to maintain constant temperature
+# -------------------------------------------------------------------
+fix nve all nve/limit 0.1 # nve equilibrium but limit step size to 0.1
+fix lang all langevin ${temp} ${temp} 1 8888 # set langevin thermostat
+
+run 10000 # Run for 1000 steps (should be enough to equilibrate the system)
+
+unfix nve # Remove nve constraint
+unfix lang # Remove langevin thermostat
+write_data initial.data # save the equilibrated data 

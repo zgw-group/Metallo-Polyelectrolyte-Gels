@@ -27,30 +27,35 @@ cwd_initialization="$(pwd)"
 cwd="$(pwd)/1-initialization"
 log_file="initialization.log"
 
-echo "INFO: Generating initial system"
 # Make and enter the initial directory
 # move to working directory
 mkdir -p "${cwd}"
 cd "${cwd}" || exit
+
+echo "INFO: Generating initial system"
+mkdir -p "${cwd}/initial_system"
+cd "${cwd}/0-initial_system" || exit
 
 {
 if [ ! -f input.data ]
 then
     
     # Initialise the box
-    cp "${input_path}/init_ionomer.py" init_ionomer.py
+    cp "${input_path}/initialize.py" initialize.py
     
-    sed -i "s/rho/$DENSITY/g" init_ionomer.py
+    sed -i "s/rho/$DENSITY/g" initialize.py
 
-    sed -i "s/Npoly/$NCHAIN/g" init_ionomer.py
-    sed -i "s/Nbb/$SPARSITY/g" init_ionomer.py
-    sed -i "s/Nmono/$NMONOMER/g" init_ionomer.py
+    sed -i "s/Npoly/$NCHAIN/g" initialize.py
+    sed -i "s/Nbb/$SPARSITY/g" initialize.py
+    sed -i "s/Nmono/$NMONOMER/g" initialize.py
 
-    sed -i "s/Nion/$NMETAL/g" init_ionomer.py
-    sed -i "s/Z_c/$METAL_CHARGE/g" init_ionomer.py
-    sed -i "s/r_i/$METAL_DIAMETER/g" init_ionomer.py
+    sed -i "s/Nion/$NMETAL/g" initialize.py
+    sed -i "s/Z_c/$METAL_CHARGE/g" initialize.py
+    sed -i "s/r_i/$METAL_DIAMETER/g" initialize.py
 
-    $PYTHON_BIN init_ionomer.py
+    $PYTHON_BIN initialize.py
+
+    rm initialize.py
     
     # Set the conditions in the box
     cp "${input_path}/parameters.in" parameters.in
@@ -65,3 +70,40 @@ then
     sed -i "s/e_r/$DIELECTRIC/g" parameters.in
 fi
 } > "${log_file}" 2>&1
+echo "Critical: System initialized."
+cd "${cwd}" || exit
+
+echo "INFO: Minimizing initial system energy."
+# Make and enter the initial directory
+# move to working directory
+mkdir -p "${cwd}/1-energy_minimisation"
+cd "${cwd}/1-energy_minimisation" || exit
+
+{
+if [ ! -f initial.data ]
+then
+    # Perform energy minimisation
+    cp "${input_path}/energy_minimise.in" energy_minimise.in
+
+    if [ "${GPUS}" == "0" ]
+    then
+        if [ -z ${CPU_LIST+x} ]
+        then
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -in energy_minimise.in
+        else
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $LAMMPS_BIN -in energy_minimise.in
+        fi
+    else
+        if [ -z ${CPU_LIST+x} ]
+        then
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN  -sf gpu -pk gpu $GPUS -in energy_minimise.in
+        else
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in energy_minimise.in
+        fi
+    fi  
+fi
+} > "${log_file}" 2>&1
+cd "${cwd}" || exit
+
+echo "Critical: Initial system energy minimized."
+cd "${cwd_initialization}" || exit 1
