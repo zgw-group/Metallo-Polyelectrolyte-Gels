@@ -9,6 +9,7 @@ ncpuT = int(sys.argv[1])
 ncpu = int(sys.argv[2])
 
 df = pd.read_csv("top.txt",header=None,skiprows=2,sep=',|:',usecols=[1],nrows=ncpuT,engine="python")
+os.system("rm top.txt")
 
 avail = []
 for i in range(len(df)):
