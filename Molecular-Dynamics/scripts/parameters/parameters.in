@@ -6,7 +6,6 @@ units           lj
 # Set conditions
 # -----------------------------------------------------------
 variable  temp             equal   Temp
-variable  pre              equal   Pre
 
 # -----------------------------------------------------------
 # Define atom types
@@ -49,7 +48,6 @@ comm_modify     vel yes # Communicate velocity info with ghost atoms
 # Forcefield
 # ====================================================================
 pair_style      lj/cut/coul/cut 1.12246204831 18 # lj+coulomb potential w/ particle-particle particle-mesh solver for coulomb
-# pair_style      lj/cut/coul/long 1.12246204831 18 # lj+coulomb potential w/ particle-particle particle-mesh solver for coulomb
 bond_style      fene    # FENE-type bond interactions
 special_bonds   fene    # prevents LJ from being counted twice
 

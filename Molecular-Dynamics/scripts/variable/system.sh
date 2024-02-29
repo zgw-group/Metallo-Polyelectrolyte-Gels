@@ -15,14 +15,14 @@ project_path="${script_path}/../.."
 # ##############################################################################
 
 # Polymer tag
-POLYMER_TAG="POL_${NCHAIN}-${SPARSITY}-${NMONOMER}"
+POLYMER_TAG="POL-${NCHAIN}-${SPARSITY}-${NMONOMER}"
 export POLYMER_TAG
 
 # Metal tag
-METAL_TAG="MET_${NMETAL}-${METAL_CHARGE}_${METAL_DIAMETER}"
+METAL_TAG="ION-${NMETAL}-${METAL_CHARGE}-${METAL_DIAMETER}"
 
 # system tag
-SYSTEM_TAG="diel_${DIELECTRIC}_dens_${DENSITY}_temp_${TEMPERATURE}"
+SYSTEM_TAG="DIEL-${DIELECTRIC}-DENS-${DENSITY}-TEMP-${TEMPERATURE}"
 
 # Combine tags
 export TAG="${TAG_JOBID}-${METAL_TAG}-${POLYMER_TAG}-${SYSTEM_TAG}"

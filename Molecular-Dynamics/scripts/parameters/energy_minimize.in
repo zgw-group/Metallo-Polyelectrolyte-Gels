@@ -4,8 +4,8 @@
 # -------------------------------------------------------------------
 # Set Up Simulation based on NVE run
 # -------------------------------------------------------------------
-include parameters.in
-read_data input.data
+include ../../parameters.in
+read_data ../0-initial_system/input.data
 
 reset_timestep 0
 
