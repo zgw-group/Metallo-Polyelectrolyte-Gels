@@ -13,17 +13,15 @@
 
 # set paths to executables
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-LAMMPS_BIN="${script_path}/../../software/lammps/lmp"
-export LAMMPS_BIN
+export LAMMPS_BIN="${script_path}/../../software/lammps/build/lmp"
+export MPI_BIN="/home/pjwalker/software/openmpi_4.1.5-gcc_11.4.0-cuda_11.6.124/bin/mpirun"
 
 hostname=$(hostname -s)
 
 if [[ "${hostname}" == "pierre-walker" ]]; then
     # If on Pierre's machine, get the list of CPUs you can pin to.
     TOTAL_CPU=24
-    CPU_LIST="$(python3 ${script_path}/../parameters/cpu_avail.py ${TOTAL_CPU} $CPU_THREADS)"
-    export CPU_LIST
+    export CPU_LIST="$(python3 ${script_path}/../parameters/cpu_avail.py ${TOTAL_CPU} $CPU_THREADS)"
     echo "CPUs pinned: ${CPU_LIST}"
-    PYTHON_BIN="/home/pjwalker/anaconda3/bin/python3"
-    export PYTHON_BIN
+    export PYTHON_BIN="/home/pjwalker/anaconda3/bin/python3"
 fi    

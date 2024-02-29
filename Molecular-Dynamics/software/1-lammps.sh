@@ -39,7 +39,7 @@ cmake ../cmake -D PKG_MOLECULE=yes -D PKG_KSPACE=yes -D PKG_MANYBODY=yes
 
 # Add GPU support if requested
 if [ "$GPU" = "on" ]; then
-    cmake ../cmake -D PKG_GPU=yes -D GPU_API=cuda-D GPU_ARCH=$CUDA_ARCH      
+    cmake ../cmake -D PKG_GPU=yes -D GPU_API=cuda -D GPU_ARCH=$CUDA_ARCH      
 fi 
 
 # Compile LAMMPS
