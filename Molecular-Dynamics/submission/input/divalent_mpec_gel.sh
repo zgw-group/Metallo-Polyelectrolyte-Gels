@@ -7,7 +7,6 @@
 
 # Hardware ####################################################################
 export CPU_THREADS='1'                     # number of CPU threads to use (-1 = all available)
-export CPU_PINS='1'                         # offset for CPU thread pinning (-1 = no offset)
 export GPUS='1'                             # number of GPUs to use (-1 = all available)
 export GPU_ID='0'                           # GPU ID to use (-1 = no GPU)
 

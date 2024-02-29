@@ -91,16 +91,16 @@ then
     then
         if [ -z ${CPU_LIST+x} ]
         then
-            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -in energy_minimize.in
-        else
             $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $LAMMPS_BIN -in energy_minimize.in
+        else
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -in energy_minimize.in
         fi
     else
         if [ -z ${CPU_LIST+x} ]
         then
-            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN  -sf gpu -pk gpu $GPUS -in energy_minimize.in
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $LAMMPS_BIN  -sf gpu -pk gpu $GPUS -in energy_minimize.in
         else
-            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in energy_minimize.in
+            $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in energy_minimize.in
         fi
     fi  
 fi
