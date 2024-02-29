@@ -50,9 +50,9 @@ then
         # if CPU_LIST is not set, then use all available cores
         if [ -z ${CPU_LIST+x} ]
         then
-            $ORCA_BIN complex_IR.inp > complex_IR.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
-        else
             $ORCA_BIN complex_IR.inp > complex_IR.out "-np $CPU_THREADS --use-hwthread-cpus"
+        else
+            $ORCA_BIN complex_IR.inp > complex_IR.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
         fi
     else
         $ORCA_BIN complex_IR.inp > complex_IR.out
@@ -77,9 +77,9 @@ else
             # if CPU_LIST is not set, then use all available cores
             if [ -z ${CPU_LIST+x} ]
             then
-                $ORCA_BIN complex_IR.inp > complex_IR.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
-            else
                 $ORCA_BIN complex_IR.inp > complex_IR.out "-np $CPU_THREADS --use-hwthread-cpus"
+            else
+                $ORCA_BIN complex_IR.inp > complex_IR.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
             fi
         else
             $ORCA_BIN complex_IR.inp > complex_IR.out

@@ -106,9 +106,9 @@ then
             # if CPU_LIST is not set, then use all available cores
             if [ -z ${CPU_LIST+x} ]
             then
-                $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
-            else
                 $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus"
+            else
+                $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
             fi
         else
             $ORCA_BIN ligand.inp > ligand.out
@@ -139,9 +139,9 @@ else
         then
             if [ -z ${CPU_LIST+x} ]
             then
-                $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
-            else
                 $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus"
+            else
+                $ORCA_BIN ligand.inp > ligand.out "-np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST"
             fi
         else
             $ORCA_BIN ligand.inp > ligand.out
