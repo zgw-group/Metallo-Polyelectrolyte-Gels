@@ -88,6 +88,14 @@ else
 fi
 } > "${log_file}" 2>&1
 
+if grep -Fq "ORCA TERMINATED NORMALLY" complex_IR.out
+then
+    echo "INFO: Calculation successful"
+else
+    echo "INFO: Calculation failed"
+    exit 1
+fi
+
 # Obtain spectrum using Multiwfn
 {
 $MFW_BIN complex_IR.out << EOF

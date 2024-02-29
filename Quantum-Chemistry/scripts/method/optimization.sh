@@ -81,6 +81,14 @@ else
 fi
 } > "${log_file}" 2>&1
 
+if grep -Fq "ORCA TERMINATED NORMALLY" optimization.out
+then
+    echo "INFO: Optimization successful"
+else
+    echo "INFO: Optimization failed"
+    exit 1
+fi
+
 kill -SIGKILL $pid
 # Exit the directory and return to the main folder
 echo "Critical: Finished complex optimization"

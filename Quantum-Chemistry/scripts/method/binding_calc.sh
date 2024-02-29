@@ -149,6 +149,15 @@ else
     fi
 fi
 } > "${log_file}" 2>&1
+
+if grep -Fq "ORCA TERMINATED NORMALLY" ligand.out
+then
+    echo "INFO: Ligand optimization successful"
+else
+    echo "INFO: Ligand optimization failed"
+    exit 1
+fi
+
 echo "Critical: Obtained optimised SPE of Ligand"
 cd "${cwd}" || exit
 
