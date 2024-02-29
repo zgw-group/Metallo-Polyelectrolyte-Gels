@@ -16,7 +16,7 @@ export GPU_ID='0'                           # GPU ID to use (-1 = no GPU)
 export TAG_JOBID="0.2.0" # tag to append to system name
 
 # metal specification
-export NMETAL="600"                         # Give the number of metal atoms
+export NMETAL="200"                         # Give the number of metal atoms
 export METAL_DIAMETER="0.5"                 # Give the radius of the metal
 export METAL_CHARGE="2"                     # Give the charge of the metal
 
