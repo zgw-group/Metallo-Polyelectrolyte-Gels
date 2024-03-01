@@ -39,7 +39,7 @@ dump_modify dcd1 append yes
 fix nvt all nvt/sllod temp ${temp} ${temp} 1.0
 fix prod_stress all deform 1 x erate STRAIN_RATE remap v
 fix ba  all balance 1000 1.05 shift x 10 1.05
-fix fix_xx all ave/time 1 1000 1000 v_pxx v_pyy v_pzz file stress.txt append
+fix fix_xx all ave/time 1 1000 1000 v_pxx v_pyy v_pzz file stress.txt
 
 fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no
 

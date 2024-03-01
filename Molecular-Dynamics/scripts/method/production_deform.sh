@@ -56,6 +56,8 @@ then
             sed -i "s/restartn/restart1/g" production_deform_restart.in
         fi
 
+        mv --backup=t stress.txt stress.txt.bak
+
         if [ "${GPUS}" == "0" ]
         then
             if [ -z ${CPU_LIST+x} ]
@@ -99,6 +101,9 @@ then
     fi
 fi
 } > "${log_file}" 2>&1
+
+tail -n +3 -q stress.txt.bak.* >> stress.txt
+
 cd "${cwd}" || exit
 
 echo "Critical: Deformation simulation completed."
