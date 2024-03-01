@@ -1,0 +1,34 @@
+# ====================================================================
+# Thermodynamics
+# ====================================================================
+group           poly type 1 2 3
+group           charged type 3 4
+
+compute gyr poly gyration
+variable Rgyr equal c_gyr[1]
+
+compute stress all pressure thermo_temp
+
+compute RDF all rdf 50 4 3 cutoff 2.0
+variable Ncoord equal c_RDF[50][3]
+
+thermo_style    custom step temp vol press cpuremain
+thermo    ${thermofreq}
+
+variable Step equal "step"
+variable Temp equal "temp"
+variable EK equal "ke"
+variable EP equal "pe"
+variable Etotal equal "etotal"
+variable Epair equal "epair"
+variable Ebond equal "ebond"
+variable Eangle equal "eangle"
+variable Vol equal  "vol"
+variable Pxx equal "pxx"
+variable Pyy equal "pyy"
+variable Pzz equal "pzz"
+variable Density equal "density"
+variable Press equal "press"
+variable Lx equal "lx"
+variable Ly equal "ly"
+variable Lz equal "lz"
