@@ -146,7 +146,7 @@ fi
 # run deformation simulation
 if [[ "${flag_deformation}" = true ]]; then
     echo "Running deformation simulation..."
-    source "${project_path}/scripts/method/deformation.sh"
+    source "${project_path}/scripts/method/production_deform.sh"
 fi
 
 # ##############################################################################
