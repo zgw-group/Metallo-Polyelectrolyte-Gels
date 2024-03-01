@@ -15,14 +15,14 @@ export GPU_ID='0'                           # GPU ID to use (-1 = no GPU)
 export TAG_JOBID="0.2.0" # tag to append to system name
 
 # metal specification
-export NMETAL="200"                         # Give the number of metal atoms
+export NMETAL="300"                         # Give the number of metal atoms
 export METAL_DIAMETER="0.5"                 # Give the radius of the metal
 export METAL_CHARGE="2"                     # Give the charge of the metal
 
 # polymer specification
 export NCHAIN="50"                          # Give the number of polymers
-export SPARSITY="41"                        # Give the charge sparsity of the polymer
-export NMONOMER="8"                         # Give the number of monomers in the polymer
+export SPARSITY="27"                        # Give the charge sparsity of the polymer
+export NMONOMER="12"                         # Give the number of monomers in the polymer
 export BEAD_DIAMETER="1"                    # Give the radius of the polymer
 
 # co-ion specification
@@ -40,4 +40,4 @@ export NUM_STEPS="35000000"                 # Give the number of steps
 
 # Production - Deformation
 export DEFORMATION="0.652e-2"               # Give the deformation rate
-export DEFORMATION_STEPS="300000"           # Give the number of steps
+export MAX_STRAIN="9"                       # Give the maximum strain
