@@ -3,7 +3,7 @@
 #
 # Author     : Pierre Walker (GitHub: @pw0908)
 # Date       : 2024-02-23
-# Description: Script to create initial system for MD simulations
+# Description: Script to perform equilibration MD on the system
 # Usage      : ./system_equilibration.sh
 # Notes      : Script assumes that global variables have been set in a
 #             submission/input/*.sh script. Script should only be called from
@@ -70,7 +70,6 @@ then
                 $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in equilibration_restart.in
             fi
         fi
-
     else
         # Perform equilibration run
         cp "${input_path}/equilibration.in" equilibration.in
@@ -96,5 +95,5 @@ fi
 } > "${log_file}" 2>&1
 cd "${cwd}" || exit
 
-echo "Critical: Initial system energy minimized."
+echo "Critical: Equilibration simulation completed."
 cd "${cwd_equilibration}" || exit 1

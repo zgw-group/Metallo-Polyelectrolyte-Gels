@@ -9,6 +9,7 @@ include ../parameters.in
 read_restart simulation.restartn
 write_data restart.data
 include ../thermo.in
+variable retime equal 5000000-${Step}
 
 # -------------------------------------------------------------------
 # Equilibration NVT run
@@ -23,8 +24,8 @@ fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.t
 
 timestep                0.005 # set time step to 0.005 tau
 reset_timestep          ${Step}
-run                     5000000 # number of steps
-write_data npt.data # coordinates are saved as wrapped and unscaled
+run                     ${retime} # number of steps
+write_data equilibrated.data # coordinates are saved as wrapped and unscaled
 
 unfix ba
 unfix thermostuff
