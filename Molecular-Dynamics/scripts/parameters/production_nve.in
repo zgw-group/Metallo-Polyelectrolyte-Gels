@@ -1,0 +1,42 @@
+# ====================================================================
+# Equilibration run
+# ====================================================================
+# -------------------------------------------------------------------
+# Set Up Simulation based on NVE run
+# -------------------------------------------------------------------
+include ../parameters.in
+read_data ../2-equilibration/equilibrated.data
+
+include ../thermo.in
+
+reset_timestep 0
+
+compute        p all pressure thermo_temp
+# compute        p all reduce sum c_peratom[1] c_peratom[2] c_peratom[3] c_peratom[4] c_peratom[5] c_peratom[6]
+
+variable       pn  equal -(c_p[1]+c_p[2]+c_p[3])
+variable       pxx equal -(c_p[1])
+variable       pyy equal -(c_p[2])
+variable       pzz equal -(c_p[3])
+variable       pxy equal -(c_p[4])
+variable       pzx equal -(c_p[5])
+variable       pyz equal -(c_p[6])
+# -------------------------------------------------------------------
+# Set Initial Velocity of atoms
+# -------------------------------------------------------------------
+velocity    all create ${temp} 87287 loop geom dist gaussian # generate the initial velocities of your system based on a gaussian distribution
+
+# -------------------------------------------------------------------
+# Equilibration NpT run
+# -------------------------------------------------------------------
+dump dcd1 all custom ${dumpfreq} nve_unwrapped.lammpsdump id mol type x y z ix iy iz # dump coordinates
+
+fix	nve all nve 
+fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no
+
+timestep                0.005 # set time step to 0.005 tau
+run                     10000000 # number of steps
+write_data production_nve.data # coordinates are saved as wrapped and unscaled
+
+unfix nve
+unfix thermostuff

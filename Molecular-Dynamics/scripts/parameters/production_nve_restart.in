@@ -1,0 +1,29 @@
+# ====================================================================
+# Equilibration run
+# ====================================================================
+# -------------------------------------------------------------------
+# Set Up Simulation based on NVE run
+# -------------------------------------------------------------------
+include ../parameters.in
+
+read_restart simulation.restartn
+write_data restart.data
+include ../thermo.in
+
+variable retime equal 10000000-${Step}
+
+# -------------------------------------------------------------------
+# Equilibration NpT run
+# -------------------------------------------------------------------
+dump dcd1 all custom ${dumpfreq} nve_unwrapped.lammpsdump id mol type x y z ix iy iz # dump coordinates
+dump_modify dcd1 append yes
+
+fix	nve all nve 
+fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no
+
+timestep                0.005 # set time step to 0.005 tau
+run                     ${retime} # number of steps
+write_data production_nve.data # coordinates are saved as wrapped and unscaled
+
+unfix nve
+unfix thermostuff
