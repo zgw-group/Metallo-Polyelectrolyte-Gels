@@ -34,9 +34,9 @@ matplotlib.rcParams.update(
 
 
 files = ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '0.2.2-ION-300-2-0.5-POL-50-7-42-DIEL-0.15-DENS-0.05-TEMP-1',
+         '0.2.0a-ION-300-2-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
          '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '0.3.2-ION-200-3-0.5-POL-50-7-42-DIEL-0.15-DENS-0.05-TEMP-1']
+         '0.3.0a-ION-200-3-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1']
 
 colors = ['yellowgreen', 'yellowgreen', 'gold', 'gold']
 linestyle = ['-', '--', '-', '--']
@@ -58,4 +58,4 @@ plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 plt.tick_params(direction="in",top=True,right=True)
 plt.tick_params(which="minor",direction="in",top=True,right=True)
-plt.savefig("figures/stress_strain_di_tri_pH.png")
+plt.savefig("figures/stress_strain_di_tri_diameter.png")
