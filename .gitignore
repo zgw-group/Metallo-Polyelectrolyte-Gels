@@ -2,12 +2,16 @@
 */data/*
 *.out
 *.tar.xz
+*.png
+*.pdf
 
 # Quantum Chemistry
 Quantum-Chemistry/software/molSimplify
 Quantum-Chemistry/software/orca
 Quantum-Chemistry/software/Multiwfn
+Quantum-Chemistry/submission/input/*
 
 # Molecular Dynamics
 Molecular-Dynamics/software/lammps/*
 Molecular-Dynamics/software/mdhelper/*
+Molecular-Dynamics/submission/input/*
