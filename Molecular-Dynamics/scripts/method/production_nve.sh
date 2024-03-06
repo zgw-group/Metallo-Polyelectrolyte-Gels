@@ -34,9 +34,9 @@ cd "${cwd}" || exit
 
 # Run the simulation
 echo "INFO: Performing NVE simulation of system"
-{
 if [ ! -f production_nve.data ]
 then
+{
     if test -f "simulation.restart1"
     then
         cp "${input_path}/production_nve_restart.in" production_nve_restart.in
@@ -90,9 +90,31 @@ then
             fi
         fi
     fi
-fi
 } > "${log_file}" 2>&1
-cd "${cwd}" || exit
+fi
 
 echo "Critical: NVE production simulation completed."
+echo "Critical: Performing Cluster Analysis."
+{
+cp "${input_path}/analysis_nve.in" analysis_nve.in
+if [ "${GPUS}" == "0" ]
+then
+    if [ -z ${CPU_LIST+x} ]
+    then
+        $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $CPU_LIST $LAMMPS_BIN $CPU_THREADS -in analysis_nve.in
+    else
+        $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -in analysis_nve.in
+    fi
+else
+    if [ -z ${CPU_LIST+x} ]
+    then
+        $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in analysis_nve.in
+    else
+        $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in analysis_nve.in
+    fi
+fi
+} > "analysis_${log_file}" 2>&1
+echo "Critical: Cluster Analysis Complete."
+cd "${cwd}" || exit
+
 cd "${cwd_production_nve}" || exit 1

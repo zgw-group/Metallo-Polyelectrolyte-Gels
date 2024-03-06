@@ -1,0 +1,34 @@
+# ====================================================================
+# Equilibration run
+# ====================================================================
+# -------------------------------------------------------------------
+# Set Up Simulation based on NVE run
+# -------------------------------------------------------------------
+include ../parameters.in
+
+neigh_modify every 1 delay 0 check yes one 20000 page 200000
+
+read_data production_nve.data
+
+# ====================================================================
+# Thermodynamics
+# ====================================================================
+group           poly type 1 2 3
+group           charged type 3 4
+
+compute cluster all aggregate/atom 0.95
+compute cc1 all chunk/atom c_cluster compress yes
+compute size all property/chunk cc1 count
+
+variable CMass  equal max(c_size)
+
+variable Step equal "step"
+variable CPURemain equal "cpuremain"
+
+# -------------------------------------------------------------------
+# Re-run system
+# -------------------------------------------------------------------
+
+fix cluster_size all print 20000 "${Step} ${CMass}" file cluster_size.txt screen no
+
+rerun production_nve_unwrapped.lammpsdump every 20000 dump x y z ix iy iz
