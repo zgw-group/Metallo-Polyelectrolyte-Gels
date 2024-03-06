@@ -35,7 +35,7 @@ mkdir -p build
 cd build
 
 # Adding modules
-cmake ../cmake -D PKG_MOLECULE=yes -D PKG_KSPACE=yes -D PKG_MANYBODY=yes                  
+cmake ../cmake -D PKG_MOLECULE=yes -D PKG_KSPACE=yes -D PKG_MANYBODY=yes -D PKG_OPENMP=yes                
 
 # Add GPU support if requested
 if [ "$GPU" = "on" ]; then
