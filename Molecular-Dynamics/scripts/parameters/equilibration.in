@@ -18,7 +18,7 @@ velocity    all create 1.0 87287 loop geom dist gaussian # generate the initial 
 # -------------------------------------------------------------------
 # Equilibration NVT run
 # -------------------------------------------------------------------
-dump dcd1 all custom ${dumpfreq} equilibration_unwrapped.lammpsdump id mol type x y z ix iy iz # dump coordinates
+dump dcd1 all dcd ${dumpfreq} equilibration.dcd # dump coordinates
 
 fix nvt all nvt temp ${temp} ${temp} 1.0
 fix ba  all balance 1000 1.05 shift x 10 1.05

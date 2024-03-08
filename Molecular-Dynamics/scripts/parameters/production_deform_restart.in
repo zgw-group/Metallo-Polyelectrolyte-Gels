@@ -32,7 +32,7 @@ velocity    all create ${temp} 87287 loop geom dist gaussian # generate the init
 # -------------------------------------------------------------------
 # Equilibration NpT run
 # -------------------------------------------------------------------
-dump dcd1 all custom ${dumpfreq} deform_unwrapped.lammpsdump id mol type x y z ix iy iz # dump coordinates
+dump dcd1 all dcd ${dumpfreq} deform.dcd # dump coordinates
 dump_modify dcd1 append yes
 
 

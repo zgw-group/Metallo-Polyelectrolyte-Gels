@@ -29,7 +29,7 @@ velocity    all create ${temp} 87287 loop geom dist gaussian # generate the init
 # -------------------------------------------------------------------
 # Equilibration NpT run
 # -------------------------------------------------------------------
-dump dcd1 all custom ${dumpfreq} production_nve_unwrapped.lammpsdump id mol type x y z ix iy iz # dump coordinates
+dump dcd1 all dcd ${dumpfreq} production_nve.dcd # dump coordinates
 
 fix	nve all nve 
 fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no

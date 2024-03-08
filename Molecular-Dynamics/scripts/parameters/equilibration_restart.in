@@ -14,7 +14,7 @@ variable retime equal 5000000-${Step}
 # -------------------------------------------------------------------
 # Equilibration NVT run
 # -------------------------------------------------------------------
-dump dcd1 all custom ${dumpfreq} equilibration_unwrapped.lammpsdump id mol type x y z ix iy iz # dump coordinates
+dump dcd1 all dcd ${dumpfreq} equilibration.dcd # dump coordinates
 dump_modify dcd1 append yes
 
 fix nvt all nvt temp ${temp} ${temp} 1.0
