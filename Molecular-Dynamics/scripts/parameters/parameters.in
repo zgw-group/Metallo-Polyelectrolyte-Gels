@@ -6,6 +6,7 @@ units           lj
 # Set conditions
 # -----------------------------------------------------------
 variable  temp             equal   Temp
+variable  pre              equal   Pre
 
 # -----------------------------------------------------------
 # Define atom types

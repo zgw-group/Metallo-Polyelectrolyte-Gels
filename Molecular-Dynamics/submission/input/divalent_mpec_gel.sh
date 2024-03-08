@@ -31,6 +31,7 @@ export COION_DIAMETER="1.5"                 # Give the radius of the co-ion
 # Simulation #################################################################
 # Initialisation
 export DENSITY="0.05"                       # Give the initial density
+export PRESSURE="0.001"                     # Give the pressure
 export TEMPERATURE="1"                      # Give the temperature
 export DIELECTRIC="0.15"                    # Give the dielectric constant
 

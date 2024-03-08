@@ -1,23 +1,23 @@
 # ====================================================================
-# Equilibration run
+# Restarted Equilibration NPT run
 # ====================================================================
 # -------------------------------------------------------------------
-# Set Up Simulation based on NVE run
+# Set Up Simulation based on last frame of previous run
 # -------------------------------------------------------------------
-include ../parameters.in
+include ../../parameters.in
 
 read_restart simulation.restartn
 write_data restart.data
-include ../thermo.in
+include ../../thermo.in
 variable retime equal 5000000-${Step}
 
 # -------------------------------------------------------------------
-# Equilibration NVT run
+# Equilibration NPT run
 # -------------------------------------------------------------------
-dump dcd1 all dcd ${dumpfreq} equilibration.dcd # dump coordinates
+dump dcd1 all dcd ${dumpfreq} equilibration_npt.dcd # dump coordinates
 dump_modify dcd1 append yes
 
-fix nvt all nvt temp ${temp} ${temp} 1.0
+fix npt all npt temp ${temp} ${temp} 1.0 iso ${pre} ${pre} 10
 fix ba  all balance 1000 1.05 shift x 10 1.05
 
 fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no
@@ -25,8 +25,8 @@ fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.t
 timestep                0.005 # set time step to 0.005 tau
 reset_timestep          ${Step}
 run                     ${retime} # number of steps
-write_data equilibrated.data # coordinates are saved as wrapped and unscaled
+write_data equilibrated_npt.data # coordinates are saved as wrapped and unscaled
 
 unfix ba
 unfix thermostuff
-unfix nvt
+unfix npt

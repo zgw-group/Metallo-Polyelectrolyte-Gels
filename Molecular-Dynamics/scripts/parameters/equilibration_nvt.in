@@ -1,0 +1,35 @@
+# ====================================================================
+# Equilibration NVT run
+# ====================================================================
+# -------------------------------------------------------------------
+# Set Up Equilibration NVT Simulation based on the initialized system
+# -------------------------------------------------------------------
+include ../../parameters.in
+read_data ../../1-initialization/initial.data
+include ../../thermo.in
+
+reset_timestep 0
+
+# -------------------------------------------------------------------
+# Set Initial Velocity of atoms
+# -------------------------------------------------------------------
+velocity    all create 1.0 87287 loop geom dist gaussian # generate the initial velocities of your system based on a gaussian distribution
+
+# -------------------------------------------------------------------
+# Equilibration NVT run
+# -------------------------------------------------------------------
+dump dcd1 all dcd ${dumpfreq} equilibration_nvt.dcd # dump coordinates
+
+fix nvt all nvt temp ${temp} ${temp} 1.0
+fix ba  all balance 1000 1.05 shift x 10 1.05
+
+fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no
+
+timestep                0.005 # set time step to 0.005 tau
+run                     5000000 # number of steps
+write_data equilibrated_nvt.data # coordinates are saved as wrapped and unscaled
+
+unfix ba
+unfix thermostuff
+unfix nvt
+undump dcd1 
