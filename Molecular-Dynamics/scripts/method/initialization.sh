@@ -38,6 +38,7 @@ then
 fi
 
 sed -i "s/Temp/$TEMPERATURE/g" parameters.in
+sed -i "s/Pre/$PRESSURE/g" parameters.in
 sed -i "s/e_r/$DIELECTRIC/g" parameters.in
 
 # Make and enter the initial directory
@@ -82,7 +83,7 @@ mkdir -p "${cwd}/1-energy_minimisation"
 cd "${cwd}/1-energy_minimisation" || exit
 
 {
-if [ ! -f initial.data ]
+if [ ! -f minimized.data ]
 then
     # Perform energy minimisation
     cp "${input_path}/energy_minimize.in" energy_minimize.in
@@ -103,10 +104,10 @@ then
             $MPI_BIN -np $CPU_THREADS --use-hwthread-cpus --bind-to core --cpu-set $CPU_LIST $LAMMPS_BIN -sf gpu -pk gpu $GPUS -in energy_minimize.in
         fi
     fi  
+    mv initial.data "${cwd}/initial.data"
 fi
 
 # Move the initial structure file to the main directory
-mv initial.data "${cwd}/initial.data"
 
 } > "${log_file}" 2>&1
 cd "${cwd}" || exit
