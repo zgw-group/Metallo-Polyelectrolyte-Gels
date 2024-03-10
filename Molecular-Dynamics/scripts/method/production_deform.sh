@@ -39,7 +39,7 @@ if [ ! -f production_deform.data ]
 then
     if test -f "simulation.restart1"
     then
-        cp "${input_path}/production_deform_restart.in" production_deform_restart.in
+        cp "${input_path}/production/production_deform_restart.in" production_deform_restart.in
 
         sed -i "s/MAX_STRAIN/${MAX_STRAIN}/g" production_deform_restart.in
         sed -i "s/STRAIN_RATE/${DEFORMATION}/g" production_deform_restart.in
@@ -77,7 +77,7 @@ then
 
     else
         # Perform nvt run
-        cp "${input_path}/production_deform.in" production_deform.in
+        cp "${input_path}/production/production_deform.in" production_deform.in
 
         sed -i "s/MAX_STRAIN/${MAX_STRAIN}/g" production_deform.in
         sed -i "s/STRAIN_RATE/${DEFORMATION}/g" production_deform.in

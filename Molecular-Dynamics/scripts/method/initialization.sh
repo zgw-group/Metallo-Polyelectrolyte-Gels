@@ -56,7 +56,7 @@ if [ ! -f input.data ]
 then
     
     # Initialise the box
-    cp "${input_path}/initialize.py" initialize.py
+    cp "${input_path}/initialization/initialize.py" initialize.py
     
     sed -i "s/rho/$DENSITY/g" initialize.py
 
@@ -86,7 +86,7 @@ cd "${cwd}/1-energy_minimisation" || exit
 if [ ! -f minimized.data ]
 then
     # Perform energy minimisation
-    cp "${input_path}/energy_minimize.in" energy_minimize.in
+    cp "${input_path}/initialization/energy_minimize.in" energy_minimize.in
 
     if [ "${GPUS}" == "0" ]
     then

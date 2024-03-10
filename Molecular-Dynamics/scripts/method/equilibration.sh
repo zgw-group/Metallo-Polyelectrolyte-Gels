@@ -50,7 +50,7 @@ then
     {
     if test -f "simulation.restart1"
     then
-        cp "${input_path}/equilibration_nvt_restart.in" equilibration_nvt_restart.in
+        cp "${input_path}/equilibration/equilibration_nvt_restart.in" equilibration_nvt_restart.in
 
         if test -f "simulation.restart2"
         then
@@ -82,7 +82,7 @@ then
         fi
     else
         # Perform equilibration run
-        cp "${input_path}/equilibration_nvt.in" equilibration_nvt.in
+        cp "${input_path}/equilibration/equilibration_nvt.in" equilibration_nvt.in
 
         if [ "${GPUS}" == "0" ]
         then
@@ -124,7 +124,7 @@ then
     {
     if test -f "simulation.restart1"
     then
-        cp "${input_path}/equilibration_restart.in" equilibration_npt_restart.in
+        cp "${input_path}/equilibration/equilibration_npt_restart.in" equilibration_npt_restart.in
 
         if test -f "simulation.restart2"
         then
@@ -156,7 +156,7 @@ then
         fi
     else
         # Perform equilibration run
-        cp "${input_path}/equilibration_npt.in" equilibration_npt.in
+        cp "${input_path}/equilibration/equilibration_npt.in" equilibration_npt.in
 
         if [ "${GPUS}" == "0" ]
         then

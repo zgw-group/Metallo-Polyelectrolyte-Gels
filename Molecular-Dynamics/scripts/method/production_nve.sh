@@ -39,7 +39,7 @@ then
 {
     if test -f "simulation.restart1"
     then
-        cp "${input_path}/production_nve_restart.in" production_nve_restart.in
+        cp "${input_path}/production/production_nve_restart.in" production_nve_restart.in
 
         if test -f "simulation.restart2"
         then
@@ -71,7 +71,7 @@ then
         fi
     else
         # Perform nvt run
-        cp "${input_path}/production_nve.in" production_nve.in
+        cp "${input_path}/production/production_nve.in" production_nve.in
 
         if [ "${GPUS}" == "0" ]
         then

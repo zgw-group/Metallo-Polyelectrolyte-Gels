@@ -28,7 +28,9 @@ variable CPURemain equal "cpuremain"
 # -------------------------------------------------------------------
 # Re-run system
 # -------------------------------------------------------------------
+dump dcd1 all dcd production_nve_unwrapped
+dump_modify dcd1 unwrap yes
 
 fix cluster_size all print 20000 "${Step} ${CMass}" file cluster_size.txt screen no
 
-rerun production_nve_unwrapped.lammpsdump every 20000 dump x y z ix iy iz
+rerun production_nve.dcd every 1
