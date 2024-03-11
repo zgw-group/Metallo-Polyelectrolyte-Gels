@@ -13,7 +13,8 @@
 
 # set paths to executables
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-export LAMMPS_BIN="${script_path}/../../software/lammps/build/lmp"
+export LAMMPS_BIN="${script_path}/../../software/lammps_new/build/lmp"
+export VMD_BIN="${script_path}/../../software/vmd/plugins/LINUXAMD64/molfile/"
 export MPI_BIN="/home/pjwalker/software/openmpi_4.1.5-gcc_11.4.0-cuda_11.6.124/bin/mpirun"
 
 hostname=$(hostname -s)

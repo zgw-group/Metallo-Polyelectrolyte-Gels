@@ -50,11 +50,15 @@ for arg in "$@"; do
     -def | --deform)
         flag_deformation=true
         ;;
+    -anve | --analysis_nve)
+        flag_analysis_nve=true
+        ;;
     -a | --all)
         flag_initialization=true
         flag_equilibration=true
         flag_production_nve=true
         flag_deformation=true
+        flag_analysis_nve=true
         ;;
     -h | --help)
         echo "Usage: ${package} [global_preferences] [simulation_preferences]"
@@ -65,14 +69,15 @@ for arg in "$@"; do
         echo "If a production method is selected, the sampling method must also be selected."
         echo ""
         echo "Calculation methods:"
-        echo "  -i, --initialize    Initialize the simulation."
-        echo "  -e, --equilibrate   Perform equilibriation simulation."
-        echo "  -nve, --nve         Perform production NVE simulation."
-        echo "  -def, --deform      Perform deformation simulation."
-        echo "  -a, --all           Run all simulation methods."
+        echo "  -i, --initialize      Initialize the simulation."
+        echo "  -e, --equilibrate     Perform equilibriation simulation."
+        echo "  -nve, --nve           Perform production NVE simulation."
+        echo "  -def, --deform        Perform deformation simulation."
+        echo "  -anve, --analysis_nve Perform analysis of NVE simulation."
+        echo "  -a, --all             Run all simulation methods."
         echo ""
         echo "Other:"
-        echo "  -h, --help          Display this help message."
+        echo "  -h, --help            Display this help message."
         echo ""
         exit 0
         ;;
@@ -94,7 +99,7 @@ if [[ $# -lt 1 ]]; then
 fi
 
 # check that at least one simulation method was selected
-if [[ "${flag_initialization}" = false ]] && [[ "${flag_equilibration}" = false ]] && [[ "${flag_production_nve}" = false ]] && [[ "${flag_deformation}" = false ]]; then
+if [[ "${flag_initialization}" = false ]] && [[ "${flag_equilibration}" = false ]] && [[ "${flag_production_nve}" = false ]] && [[ "${flag_deformation}" = false ]] && [[ "${flag_analysis_nve}" = false ]]; then
     echo "ERROR: No simulation methods selected."
     echo "Usage: ${package} [global_preferences] [simulation_preferences]"
     echo "Use '${package} --help' for more information."
@@ -147,6 +152,12 @@ fi
 if [[ "${flag_deformation}" = true ]]; then
     echo "Running deformation simulation..."
     source "${project_path}/scripts/method/production_deform.sh"
+fi
+
+# run analysis of NVE simulation
+if [[ "${flag_analysis_nve}" = true ]]; then
+    echo "Analyzing NVE simulation..."
+    source "${project_path}/scripts/method/analysis_nve.sh"
 fi
 
 # ##############################################################################

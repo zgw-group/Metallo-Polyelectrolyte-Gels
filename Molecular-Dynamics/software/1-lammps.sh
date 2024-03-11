@@ -13,29 +13,29 @@ GPU="on"
 CUDA_ARCH="sm_86" # For CUDA 11.1 and higher, sm_80 for lower versions
 
 # Download LAMMPS
-if test -d lammps; then # Check if LAMMPS is already downloaded
-    echo "INFO: LAMMPS already downloaded"
-elif test -f lammps-$LAMMPS_VERSION.tar.gz; then # Check if LAMMPS tarball is already downloaded
-    tar -xvf lammps-$LAMMPS_VERSION.tar.gz
-    mv lammps-$LAMMPS_VERSION lammps
-    rm lammps-$LAMMPS_VERSION.tar.gz
-else
+# if test -d lammps; then # Check if LAMMPS is already downloaded
+#     echo "INFO: LAMMPS already downloaded"
+# elif test -f lammps-$LAMMPS_VERSION.tar.gz; then # Check if LAMMPS tarball is already downloaded
+#     tar -xvf lammps-$LAMMPS_VERSION.tar.gz
+#     mv lammps-$LAMMPS_VERSION lammps_new
+#     rm lammps-$LAMMPS_VERSION.tar.gz
+# else
     echo "INFO: Downloading latest version of LAMMPS..."
     wget https://download.lammps.org/tars/lammps-$LAMMPS_VERSION.tar.gz
     tar -xvf lammps-$LAMMPS_VERSION.tar.gz
-    mv lammps-$LAMMPS_VERSION lammps
+    mv lammps-$LAMMPS_VERSION lammps_new
     rm lammps-$LAMMPS_VERSION.tar.gz
-fi
+# fi
 
 # Enter LAMMPS directory
-cd lammps
+cd lammps_new
 
 # Build LAMMPS
 mkdir -p build
 cd build
 
 # Adding modules
-cmake ../cmake -D PKG_MOLECULE=yes -D PKG_KSPACE=yes -D PKG_MANYBODY=yes -D PKG_MOLECULE=yes -D PKG_EXTRA-DUMP=yes              
+cmake ../cmake -D PKG_MOLECULE=yes -D PKG_KSPACE=yes -D PKG_MANYBODY=yes -D PKG_MOLECULE=yes -D PKG_EXTRA-DUMP=yes -D PKG_MOLFILE=yes -D MOLFILE_INCLUDE_DIR=/home/pjwalker/Documents/Projects/Metallo-Polyelectrolyte-Gels/Molecular-Dynamics/software/vmd/plugins/include/  
 
 # Add GPU support if requested
 if [ "$GPU" = "on" ]; then
