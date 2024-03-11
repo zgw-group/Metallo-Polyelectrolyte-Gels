@@ -27,7 +27,7 @@ fix ba  all balance 1000 1.05 shift x 10 1.05
 fix thermostuff all print ${thermofreq} "${Step} ${Temp} ${Press}" file thermo.txt screen no
 
 timestep                0.005 # set time step to 0.005 tau
-run                     5000000 # number of steps
+run                     3000000 # number of steps
 write_data equilibrated_npt.data # coordinates are saved as wrapped and unscaled
 
 unfix ba

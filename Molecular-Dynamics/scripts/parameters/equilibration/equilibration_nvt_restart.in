@@ -9,7 +9,7 @@ include ../../parameters.in
 read_restart simulation.restartn
 write_data restart.data
 include ../../thermo.in
-variable retime equal 5000000-${Step}
+variable retime equal 2000000-${Step}
 
 # -------------------------------------------------------------------
 # Equilibration NVT run
