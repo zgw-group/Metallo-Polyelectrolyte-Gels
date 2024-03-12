@@ -33,10 +33,10 @@ matplotlib.rcParams.update(
 )
 
 
-files = ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '1.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-DENS-0.1-TEMP-1',
-         '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '1.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.1-TEMP-1']
+files = ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '1.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1']
+        #  '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
+        #  '1.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.1-TEMP-1']
 
 colors = ['yellowgreen', 'yellowgreen', 'gold', 'gold']
 linestyle = ['-', '--', '-', '--']
