@@ -28,6 +28,8 @@ variable CPURemain equal "cpuremain"
 # -------------------------------------------------------------------
 # Re-run system
 # -------------------------------------------------------------------
-fix cluster_size all print 20000 "${Step} ${CMass}" file cluster_size.txt screen no
+#dump d1 all custom 20 production_nve.lammpsdump id type q x y z
 
-rerun production_nve.dcd dump x y z box no format molfile dcd VMD_BIN
+fix cluster_size all print 20 "${Step} ${CMass}" file cluster_size.txt screen no
+
+rerun production_nve.dcd every 1 dump x y z box no format molfile dcd VMD_BIN
