@@ -42,6 +42,12 @@ echo "Critical: Performing analysis of NVE simulations."
 
     rm analysis_ion_pair.py
 
+    cp "${input_path}/analysis/analysis_crosslinking.py" analysis_crosslinking.py
+
+    $PYTHON_BIN analysis_crosslinking.py $NMONOMERS
+
+    rm analysis_crosslinking.py
+
     echo "INFO: Ion-pair analysis complete."
 
 } > "analysis_ip_${log_file}" 2>&1
