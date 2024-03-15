@@ -33,30 +33,34 @@ matplotlib.rcParams.update(
 )
 
 
-# files = ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
-#          '1.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.005-TEMP-1'],
-files = ['0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+# files = ['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+files = [ '0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+        #  '1.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.005-TEMP-1',
+         '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
          '1.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.005-TEMP-1']
 
-colors = ['yellowgreen', 'yellowgreen', 'gold', 'gold']
-linestyle = ['-', '--', '-', '--']
+colors = ['yellowgreen','gold','gold', 'gold']
+linestyle = ['-', '-','--', '--']
 
 fig, ax = plt.subplots()
 xminorLocator   = AutoMinorLocator()
 yminorLocator   = AutoMinorLocator()
 
 for i, file in enumerate(files):
-    data = np.loadtxt(f'../../data/{file}/4-deformation/stress.txt')
-    ax.plot(data[:, 0]/data[-1, 0]*900, data[0,1]-data[:, 1], label=file, color=colors[i], linestyle=linestyle[i])
-plt.text(600, 0.035, r'$\rho\sigma^3=0.05$', fontsize=14, color='yellowgreen')
-plt.text(600, 0.07, r'$\rho\sigma^3=0.1$', fontsize=14, color='yellowgreen')
+    data = np.load(f'../../data/{file}/3-production_nve/analysis_e2e.npz')
+    ax.semilogx(data["acf"][0][0], color=colors[i], linestyle=linestyle[i])
+
+
 ax.xaxis.set_minor_locator(xminorLocator)
 ax.yaxis.set_minor_locator(yminorLocator)
-ax.set_xlabel("Strain [%]",fontsize=16)
-ax.set_ylabel("Stress [-]",fontsize=16)
-plt.ylim(0,0.1)
+ax.set_xlabel(r"$t/\tau$",fontsize=16)
+ax.set_ylabel(r"$\rho_\mathrm{poly.}(0,t)$",fontsize=16)
+plt.ylim(0,1)
 plt.xticks(fontsize=14)
 plt.yticks(fontsize=14)
 plt.tick_params(direction="in",top=True,right=True)
 plt.tick_params(which="minor",direction="in",top=True,right=True)
-plt.savefig("figures/stress_strain_tri_solv.png")
+plt.savefig('figures/e2e_tri_di_solv.png')
+
+
+# print(len(ag))

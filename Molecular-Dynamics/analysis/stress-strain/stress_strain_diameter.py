@@ -33,13 +33,15 @@ matplotlib.rcParams.update(
 )
 
 
-files = ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
-         '0.2.0a-ION-300-2-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1']
-        #  '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-        #  '0.3.0a-ION-200-3-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1']
+files = ['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1', 
+         '0.1.0a-ION-600-1-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1', 
+         '0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.2.0a-ION-300-2-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.3.0a-ION-200-3-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1']
 
-colors = ['yellowgreen', 'yellowgreen', 'gold', 'gold']
-linestyle = ['-', '--', '-', '--']
+colors = ['steelblue','steelblue','yellowgreen', 'yellowgreen', 'gold', 'gold']
+linestyle = ['-', '--','-', '--', '-', '--']
 
 fig, ax = plt.subplots()
 xminorLocator   = AutoMinorLocator()
@@ -48,7 +50,9 @@ yminorLocator   = AutoMinorLocator()
 for i, file in enumerate(files):
     data = np.loadtxt(f'../../data/{file}/4-deformation/stress.txt')
     ax.plot(data[:, 0]/data[-1, 0]*900, data[0,1]-data[:, 1], label=file, color=colors[i], linestyle=linestyle[i])
-    
+# plt.text(600, 0.045, r'$d/\sigma=0.75$', fontsize=14, color='yellowgreen')
+# plt.text(600, 0.065, r'$d/\sigma=0.5$', fontsize=14, color='yellowgreen')
+
 ax.xaxis.set_minor_locator(xminorLocator)
 ax.yaxis.set_minor_locator(yminorLocator)
 ax.set_xlabel("Strain [%]",fontsize=16)

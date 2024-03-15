@@ -31,12 +31,12 @@ matplotlib.rcParams.update(
 )
 
 
-files = [['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '0.1.0a-ION-600-1-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1'],
-         ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '0.2.0a-ION-300-2-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1'],
-         ['0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '0.3.0a-ION-200-3-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1']]
+# files = [['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
+#          '0.1.0a-ION-600-1-0.75-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1'],
+files = [['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.2.0a-ION-300-2-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1'],
+         ['0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.3.0a-ION-200-3-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1']]
 
 size = [[17400, 17400],
         [17100, 17100],
@@ -44,7 +44,7 @@ size = [[17400, 17400],
 
 l = [0.5, 0.75]
 
-colors = ['steelblue', 'yellowgreen', 'gold']
+colors = ['yellowgreen', 'gold']
 
 
 medianprops = dict(linewidth=0)
@@ -67,7 +67,7 @@ for i, file in enumerate(files):
 plt.ylim(0,1.1)
 plt.xlim(0.3,0.9)
 plt.ylabel(r"Cluster $M_w$ / Total $M_w$",fontsize=16)
-plt.xlabel(r"$d_\mathrm{ion}/\sigma$",fontsize=16)
+plt.xlabel(r"$d/\sigma$",fontsize=16)
 plt.tick_params(which="both", direction="in",top=True,right=True,labelsize=13)
 
 plt.savefig('figures/cluster_size_diameter.png')
