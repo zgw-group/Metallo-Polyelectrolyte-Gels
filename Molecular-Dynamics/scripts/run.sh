@@ -26,6 +26,8 @@ flag_initialization=false
 flag_equilibration=false
 flag_production_nve=false
 flag_deformation=false
+flag_analysis_nve=false
+flag_analysis_ip=false
 
 # action flags
 flag_archive=false
@@ -53,12 +55,15 @@ for arg in "$@"; do
     -anve | --analysis_nve)
         flag_analysis_nve=true
         ;;
+    -aip | --analysis_ip)
+        flag_analysis_ip=true
+        export IPRANGE="${2}"
+        ;;
     -a | --all)
         flag_initialization=true
         flag_equilibration=true
         flag_production_nve=true
         flag_deformation=true
-        flag_analysis_nve=true
         ;;
     -h | --help)
         echo "Usage: ${package} [global_preferences] [simulation_preferences]"
@@ -82,10 +87,10 @@ for arg in "$@"; do
         exit 0
         ;;
     *)
-        echo "ERROR: Unrecognized argument: ${arg}"
-        echo "Usage: ${package} [global_preferences] [simulation_preferences] [sampling]"
-        exit 1
-        ;;
+        # echo "ERROR: Unrecognized argument: ${arg}"
+        # echo "Usage: ${package} [global_preferences] [simulation_preferences] [sampling]"
+        # exit 1
+        # ;;
     esac
 done
 
@@ -99,7 +104,7 @@ if [[ $# -lt 1 ]]; then
 fi
 
 # check that at least one simulation method was selected
-if [[ "${flag_initialization}" = false ]] && [[ "${flag_equilibration}" = false ]] && [[ "${flag_production_nve}" = false ]] && [[ "${flag_deformation}" = false ]] && [[ "${flag_analysis_nve}" = false ]]; then
+if [[ "${flag_initialization}" = false ]] && [[ "${flag_equilibration}" = false ]] && [[ "${flag_production_nve}" = false ]] && [[ "${flag_deformation}" = false ]] && [[ "${flag_analysis_nve}" = false ]] && [[ "${flag_analysis_ip}" = false ]]; then
     echo "ERROR: No simulation methods selected."
     echo "Usage: ${package} [global_preferences] [simulation_preferences]"
     echo "Use '${package} --help' for more information."
@@ -158,6 +163,13 @@ fi
 if [[ "${flag_analysis_nve}" = true ]]; then
     echo "Analyzing NVE simulation..."
     source "${project_path}/scripts/method/analysis_nve.sh"
+fi
+
+# run ion-pair analysis of NVE simulation
+if [[ "${flag_analysis_ip}" = true ]]; then
+    echo "Analyzing NVE simulation..."
+    export IPRANGE="${2}"
+    source "${project_path}/scripts/method/analysis_ion_pair.sh"
 fi
 
 # ##############################################################################
