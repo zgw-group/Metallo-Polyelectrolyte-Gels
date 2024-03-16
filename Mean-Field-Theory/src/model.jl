@@ -28,7 +28,7 @@ Liquid-state equation to model metallo-polyelectrolyte systems using mean-field 
 # Example
 ```julia
 model = LS(["PAA","Ca2+"],1e3;userlocations=(;
-           Z = [-1,3],
+           Z = [-1,2],
            N = [1000,1],
            l = [10,1]))
 ```
