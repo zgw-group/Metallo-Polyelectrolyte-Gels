@@ -31,19 +31,20 @@ matplotlib.rcParams.update(
 )
 
 
-# files = [['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-#          '1.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-DENS-0.1-TEMP-1'],
-files =  [['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '1.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-DENS-0.1-TEMP-1'],
-         ['0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.05-TEMP-1',
-         '1.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-DENS-0.1-TEMP-1']]
+files = [['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '1.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.005-TEMP-1'],
+        ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '1.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.005-TEMP-1'],
+         ['0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '1.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.005-TEMP-1']]
 
-size = [[17100, 17100],
+size = [[17400, 17400],
+        [17100, 17100],
         [17000, 17000]]
 
 rho = [0.05, 0.1]
 
-colors = ['yellowgreen', 'gold']
+colors = ['steelblue','yellowgreen', 'gold']
 
 
 medianprops = dict(linewidth=0)
@@ -63,7 +64,7 @@ for i, file in enumerate(files):
         pc.set_facecolor(colors[i])
         pc.set_edgecolor(colors[i])
         pc.set_alpha(0.5) 
-plt.ylim(0.85,1.05)
+plt.ylim(0.,1.05)
 # plt.xscale('log')
 plt.xlim(0.02,0.12)
 plt.ylabel(r"Cluster $M_w$ / Total $M_w$",fontsize=16)

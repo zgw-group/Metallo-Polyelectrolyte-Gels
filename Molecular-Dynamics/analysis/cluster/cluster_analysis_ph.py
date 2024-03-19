@@ -32,8 +32,8 @@ matplotlib.rcParams.update(
 
 
 files = [['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
-         '0.1.2-ION-600-1-0.5-POL-50-7-42-DIEL-0.15-PRE-0.001-TEMP-1'],
-        #  '0.1.1-ION-600-1-0.5-POL-50-41-8-DIEL-0.15-DENS-0.05-TEMP-1'],
+         '0.1.2-ION-600-1-0.5-POL-50-7-42-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.1.1-ION-600-1-0.5-POL-50-41-8-DIEL-0.15-PRE-0.001-TEMP-1'],
          ['0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
          '0.2.2-ION-300-2-0.5-POL-50-7-42-DIEL-0.15-PRE-0.001-TEMP-1',
          '0.2.1-ION-300-2-0.5-POL-50-41-8-DIEL-0.15-PRE-0.001-TEMP-1'],
@@ -51,7 +51,7 @@ colors = ['steelblue', 'yellowgreen', 'gold']
 
 
 medianprops = dict(linewidth=0)
-p = [[-0.06135896 ,0.01137489 ,0.14897101],
+p = [[0.12186809,-0.51679297,0.56899599],
 [-0.14313027 ,0.3437443 , 0.71975841],
 [-0.11313027 ,0.3437443 , 0.73975841]]
 
@@ -63,8 +63,6 @@ for i, file in enumerate(files):
 
     parts = plt.violinplot(cluster_frac,widths=width, points=50, positions=l[:len(file)], showmeans=False, showmedians=False, showextrema=False)
     plt.plot(l[:len(file)],mean_cluster_frac,'+',color=colors[i],markeredgewidth=2,markersize=7)
-    # p = np.polyfit(np.log10(l[:len(file)]),mean_cluster_frac,2)
-    # print(p)
     x = np.linspace(0,2.6,100)
     plt.plot(10**x,np.polyval(p[i],x),'--',color=colors[i])
     for pc in parts['bodies']:
