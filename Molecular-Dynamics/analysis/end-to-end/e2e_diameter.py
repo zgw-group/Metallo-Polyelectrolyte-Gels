@@ -33,14 +33,15 @@ matplotlib.rcParams.update(
 )
 
 
-# files = ['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
-files = [ '0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+files = ['0.1.0-ION-600-1-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.1.0a-ION-600-1-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
+         '0.2.0-ION-300-2-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
          '0.2.0a-ION-300-2-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
          '0.3.0-ION-200-3-0.5-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1',
          '0.3.0a-ION-200-3-0.75-POL-50-27-12-DIEL-0.15-PRE-0.001-TEMP-1']
 
-colors = ['yellowgreen','yellowgreen','gold', 'gold']
-linestyle = ['-', '--','-', '--']
+colors = ['steelblue', 'steelblue','yellowgreen', 'yellowgreen', 'gold', 'gold']
+linestyle = ['-', '--', '-', '--', '-', '--']
 
 fig, ax = plt.subplots()
 xminorLocator   = AutoMinorLocator()
