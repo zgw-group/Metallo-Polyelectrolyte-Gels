@@ -133,4 +133,11 @@ function osmotic_pressure(model,lB,ρ)
     return -f(ρ)+sum(ρ.*df(ρ))
 end
 
-export osmotic_pressure
+function chemical_potential(model, lB, ρ)
+    f(x) = f_total(model,lB,x)
+    df(x) = ForwardDiff.gradient(f,x)
+
+    return df(ρ)
+end
+
+export osmotic_pressure, chemical_potential
