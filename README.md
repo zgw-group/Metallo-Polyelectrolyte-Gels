@@ -1,4 +1,5 @@
 # Metallo-Polyelectrolyte-Gels
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12682686.svg)](https://doi.org/10.5281/zenodo.12682686)
 This repository contains all the codes required to obtain the results given in _'Molecular Control via Dynamic Bonding Enables Material Responsiveness in Additively Manufactured Metallo-Polyelectrolytes'_ by S. Lee, P. Walker _et al._. The repository is divided into three independent sections:
 * **Mean-Field-Theory**: Contains the codes needed to generate the phase diagrams obtained using a novel mean-field theory using Clapeyron.
 * **Molecular-Dynamics**: Contains the codes needed to perform the Kremer-Grest Molecular-Dynamics Simulations using LAMMPS.
